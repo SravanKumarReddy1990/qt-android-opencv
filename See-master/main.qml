@@ -29,6 +29,7 @@ Window {
     id: root
     visible: true
     width: Screen.width
+   
     signal detectColourClicked
     signal calibrateWhiteClicked
 
@@ -103,7 +104,7 @@ Window {
                 name: "SCANNER"
                 PropertyChanges {
                     target: mainView
-                    visible: false
+                    visible: true
                 }
                 PropertyChanges {
                     target: scanner
@@ -184,6 +185,53 @@ Window {
         property var videoOutHorizontalCentre
         property var videoOutVerticalCentre
 
+
+
+
+        Row {
+            width: parent.width
+
+            Button {
+                anchors.margins: 20
+                text: qsTr("Cancel")
+                onClicked: {
+                    viewState.state = "MAIN"
+                }
+            }
+
+            Button {
+                anchors.margins: 20
+                width: parent.width / 2
+                text: qsTr("Detect Colour")
+                onClicked: {
+                    detectColourClicked()
+                }
+            }
+
+            Button {
+                anchors.margins: 20
+                text: qsTr("Calibrate")
+                onClicked: {
+                    calibrateWhiteClicked()
+                }
+            }
+        }
+
+        Row {
+            width: parent.width
+
+            Label {
+                width: Math.round(parent.width / 3)
+                id: colourLabel
+                text: qsTr("RGB: ")
+            }
+
+            Label {
+                id: colourDetectionResult
+                text: ""
+            }
+        }
+
         Camera {
             id: camera
             objectName: "camera"
@@ -220,60 +268,6 @@ Window {
                 }
             }
 
-            Row {
-                width: parent.width
-                Rectangle {
-                    id: colourMatchedRect
-                    width: parent.width / 10
-                    height: parent.width / 10
-                    color: "#000000"
-                    border.width: 0
-                }
-            }
-
-            Row {
-                width: parent.width
-
-                Button {
-                    anchors.margins: 20
-                    text: qsTr("Cancel")
-                    onClicked: {
-                        viewState.state = "MAIN"
-                    }
-                }
-
-                Button {
-                    anchors.margins: 20
-                    width: parent.width / 2
-                    text: qsTr("Detect Colour")
-                    onClicked: {
-                        detectColourClicked()
-                    }
-                }
-
-                Button {
-                    anchors.margins: 20
-                    text: qsTr("Calibrate")
-                    onClicked: {
-                        calibrateWhiteClicked()
-                    }
-                }
-            }
-
-            Row {
-                width: parent.width
-
-                Label {
-                    width: Math.round(parent.width / 3)
-                    id: colourLabel
-                    text: qsTr("RGB: ")
-                }
-
-                Label {
-                    id: colourDetectionResult
-                    text: ""
-                }
-            }
         }
 
         //horizontal centre line

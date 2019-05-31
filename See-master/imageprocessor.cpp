@@ -23,12 +23,12 @@ See. If not, see <http://www.gnu.org/licenses/>.
 #include <opencv2/imgproc/imgproc.hpp>
 #include <sstream>
 #include <deque>
-
 using namespace cv;
 using namespace std;
 
 void ImageProcessor::capValueTo255(float raw, unsigned char & value)
 {
+
     if(raw > (unsigned char)255) {
         value = 255;
     }
@@ -237,9 +237,14 @@ void ImageProcessor::detectColour(QString imagePath)
 {
     Mat rawImage;
     rawImage = imread(imagePath.toStdString(), cv::COLOR_RGB2GRAY);   // Read the file
+//    vector<Rect> faces;
+//CascadeClassifier face;
+//face.load(":/haarcascade_frontalface_alt.xml");
 
     size_t gridRow = rawImage.rows / 21;
     size_t gridCol = rawImage.cols / 21;
+   //face.detectMultiScale(rawImage, faces, 1.1, 2,  2,cv::Size(30),cv::Size(20));
+
     size_t roiWidth = gridRow * 1;
     size_t roiHeight = gridCol * 1;
     //qDebug() << "gridRow: " << gridRow << " " << "gridCol: " << gridCol;
